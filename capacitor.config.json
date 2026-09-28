@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.posoffline",
+  "appName": "محاسبي",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
