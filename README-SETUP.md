@@ -1,26 +1,28 @@
-# Setup & Run
+# المرحلة الثانية — Scaffold احترافي
 
-1. Clone the repo
+## التشغيل
+```bash
+npm install
+npm run dev
+npm run build
+```
 
-   git clone https://github.com/zynly9785-debug/pos-offline-pwa
-   cd pos-offline-pwa
+## ما تم إنجازه
+- واجهة Responsive عربية RTL مع تبديل EN.
+- POS يعمل دون اتصال ويحفظ الفواتير والمنتجات في IndexedDB عبر PouchDB.
+- خصم، طرق دفع نقدي/محفظة/آجل، تحديث المخزون تلقائياً.
+- منتجات ومخزون مع تنبيه حد إعادة الطلب.
+- لوحة تقارير أولية ونسخ احتياطي JSON.
+- Service Worker وManifest كتطبيق PWA.
+- مزامنة CouchDB اختيارية وآمنة عبر `VITE_COUCHDB_URL`؛ لا تضع الأسرار في الواجهة.
+- زر الطباعة يعمل في الويب، وطبقة `printer.ts` جاهزة لاستبدالها بمحول Capacitor ESC/POS للطباعة الحرارية الفعلية على Android.
 
-2. Install
+## تفعيل CouchDB
+أنشئ ملف `.env.local`:
+```env
+VITE_COUCHDB_URL=https://user:password@example.com/muhasbi
+```
+لا ترفع هذا الملف إلى GitHub. المصادقة والإذن وقواعد الصلاحيات يجب أن تُنفذ في Backend قبل الإنتاج.
 
-   npm install
-
-3. Run dev server
-
-   npm run dev
-
-4. Open http://localhost:5173
-
-5. Demo credentials / OTP
-
-   - Enter any phone number, click Send OTP (mock)
-   - Use code: 123456 to login
-
-Notes:
-- PouchDB local is used (pos_local_db)
-- Bluetooth printing is enabled as placeholder; for real Bluetooth printing build with Capacitor and a native plugin
-- Currencies preconfigured: YER, SAR, USD
+## ملاحظة إنتاجية
+هذا إصدار واجهة وOffline MVP، وليس نظام محاسبة قانونياً أو خدمة OTP/WhatsApp جاهزة للإنتاج. قبل الإطلاق يجب إضافة Backend، JWT/OTP حقيقي، قواعد صلاحيات، ترحيلات محاسبية، اختبارات، وسياسة تعارض للمزامنة.
