@@ -1,0 +1,7 @@
+/* basic styles and color tokens */
+:root{
+  --primary:#0ea5a4; /* teal */
+  --accent:#1e293b; /* dark slate */
+  --bg:#f7fafc;
+}
+body{background:var(--bg);margin:0;font-family:Inter, Arial, Helvetica, sans-serif}
