@@ -1,45 +1,5 @@
 <template>
-  <div class="page auth">
-    <div class="card">
-      <h2>محاسبي</h2>
-      <p>{{ $t('welcome') }}</p>
-      <input v-model="phone" placeholder="رقم الهاتف" />
-      <button @click="sendOtp">{{ $t('send_otp') }}</button>
-      <div v-if="sent">
-        <input v-model="code" placeholder="كود التحقق" />
-        <button @click="verify">{{ $t('verify') }}</button>
-      </div>
-    </div>
-  </div>
+  <div class="page auth"><div class="card"><div class="brand-mark">م</div><h2>محاسبي</h2><p>نظام إدارة متجرك الذكي</p><input v-model="phone" placeholder="رقم الهاتف" dir="ltr" /><button class="primary full" @click="sent=true">إرسال رمز التحقق</button><div v-if="sent"><input v-model="code" placeholder="رمز التحقق التجريبي: 123456" dir="ltr" /><button class="primary full" @click="submit">دخول آمن</button></div><small v-if="error" class="error">بيانات الدخول غير صحيحة</small></div></div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const phone = ref('')
-const code = ref('')
-const sent = ref(false)
-const router = useRouter()
-
-function sendOtp(){
-  // mock OTP send
-  sent.value = true
-  alert('Mock: رمز التحقيق أرسل عبر WhatsApp: 123456')
-}
-function verify(){
-  if(code.value === '123456'){
-    // mock login
-    router.push('/pos')
-  } else {
-    alert('رمز غير صحيح (استخدم 123456 للمحاكاة)')
-  }
-}
-</script>
-
-<style scoped>
-.page{display:flex;align-items:center;justify-content:center;height:100vh}
-.card{width:320px;padding:20px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.08);background:#fff}
-input{width:100%;padding:8px;margin:8px 0}
-button{width:100%;padding:10px;background:#1e88e5;color:#fff;border:none;border-radius:6px}
-</style>
+<script setup lang="ts">import {ref} from 'vue';import {useRouter} from 'vue-router';import {login} from '../services/auth';const phone=ref(''),code=ref(''),sent=ref(false),error=ref(false),router=useRouter();async function submit(){try{await login(phone.value,code.value);router.push('/pos')}catch{error.value=true}}</script>
+<style scoped>.auth{min-height:100vh;display:grid;place-items:center}.card{width:min(390px,90vw);background:#fff;padding:38px;border-radius:20px;box-shadow:0 15px 45px #14213d15;text-align:center}.card input{width:100%;margin:8px 0}.card p{color:var(--muted)}.error{color:var(--danger)}</style>
